@@ -1,0 +1,5 @@
+print("Enter a numer")
+UserNumber = int(input())
+print(bin(UserNumber))
+print(oct(UserNumber))
+print(hex(UserNumber))
