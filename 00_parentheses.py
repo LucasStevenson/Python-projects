@@ -55,12 +55,12 @@ print(UppVowelAst(y))
 # < 0, print out false then exit
 # After running thru loop, if counter is > 0, print out false
 # On right, plus one to counter. oN LEFT, minus one to counter
-# The number of paren is even. Cant be symetrical if num of paren is odd
+# The number of paren is 0. Cant be symetrical if num of paren is some other number
 
 
 def check_parentheses(string):
     s = UppVowelAst(string)
-    paren = 0
+    paren = 0 # i sure do love counters
     for i in s:
         if i == "(":
             paren += 1
