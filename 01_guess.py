@@ -15,7 +15,7 @@ print("The five letter word starts with " + str(answer[0]) + "\nGood Luck guessi
 while 1:
     user_input = input()
     if user_input.lower() == answer.lower():
-        print("Good Job! You are one with the Source!")
+        print("Good Job! You got it right")
         exit()
 
     elif (len(user_input) == 0):
@@ -23,7 +23,7 @@ while 1:
         counter -= 1
 
     elif (len(user_input) > 5) or (len(user_input) < 5):
-        print("0, 1, 2, 3, 4 is how we count to five!")
+        print("its a 5 letter word my guy...")
         counter -= 1
 
     elif user_input[0] != answer[0]:
