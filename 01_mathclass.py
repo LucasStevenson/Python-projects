@@ -3,6 +3,9 @@ import math
 
 del sys.argv[0] # this deletes the file name because i dont need that
 x = sys.argv # everything besides the file name
+if len(x) < 1: #no numbers are put in
+    print("you need to put in some sort of input. try again cept actually put something in")
+    exit()
 nums = [int(i) for i in x] # This converts strings in list into integers
 nums.sort()
 length = len(nums)
@@ -20,9 +23,9 @@ def average(nums):
     return(total/length)
 
 # Make a copy of nums(So I don't change the original list)
-# Iterate through while nums, then have conditional logic if length of list is 1 or 2 
+# Iterate through while nums, then have conditional logic if length of list is 1 or 2
 # If 1, return lst[0], if 2, list[0] + list[1] / 2
-# del [0] and del [-1] to take out first and last elements of the list 
+# del [0] and del [-1] to take out first and last elements of the list
 def median(nums):
     new_list = nums.copy()
     while new_list:
@@ -35,8 +38,8 @@ def median(nums):
         del new_list[0]
         del new_list[-1]
 
-# Make a dictionary to count number of occurrences of each number, then choose the highest in values (O^N)  
- 
+# Make a dictionary to count number of occurrences of each number, then choose the highest in values (O^N)
+
 def mode(nums):
     dictionary = {}
     for i in nums:
@@ -48,12 +51,12 @@ def mode(nums):
     occurs = -1 # the occurs is the number of times that it occurs
     for i in dictionary.keys():
         if dictionary[i] > occurs: # if there is only one number that appears the most amt of times
-            occurs = dictionary[i] 
+            occurs = dictionary[i]
             highest_occur = [i]
 # if the number of occurences is the same
-# Instead of a single value, make it a list 
+# Instead of a single value, make it a list
 # If value is the same, add to list
-# If value is less, ignore and move on 
+# If value is less, ignore and move on
 
         elif dictionary[i] == occurs: #if there is either no number that appears more or there are more than one number
              highest_occur.append(i)
@@ -62,7 +65,7 @@ def mode(nums):
 # dictionary[key which is the number] = value which is the number of times it occurred
 
 def range(nums):
-    return(maximum(nums) - minimum(nums))    
+    return(maximum(nums) - minimum(nums))
 
 # When doing print, cast integers that are returned into strings because print likes strings and not ints
 print("Min: " + str(minimum(nums)))
