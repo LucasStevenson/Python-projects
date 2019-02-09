@@ -1,4 +1,4 @@
 # Python Projects
 CoLlEcTiOn Of My PyThOn PrOjEcTs
 
-i also like js a lot :D.
+i mostly work on these in Saturdays. lskdjfklsdjblkdsflkajfiqjfkflKJFLKSMVKLSJ
