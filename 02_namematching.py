@@ -8,14 +8,15 @@ from collections import defaultdict
 # If NULL, create a list
 # append
 
-with open("fall_users.txt") as f: # Opening the file
+with open("names.txt") as f: # Opening the file
     line = f.readline() # reads the file
     dictionary = defaultdict(list) # a new dict for the firstname => lastname
     reverse_dict = defaultdict(list) # a new dict for lastname => firstname
     while line:
-        res = line.rstrip().split("\t") # strips the newline at the end of every name entry, and also strips the tab between the first and last names
+        res = line.rstrip().split(" ") # strips the newline at the end of every name entry, and also strips the tab between the first and last names
         rc1 = res[0].capitalize() # .capitalize() makes the first letter cap and everything else lower
         rc2 = res[1].capitalize() # takes the second value of the array (lastname)
+        # if theres an error that says rc1 or rc2 is out of range, theres something wrong with the spacing in the txt file
         # if dictionary[rc1] is NULL or reverse_dict[rc2] is NULL, make a list at those values. Only if no defaultdict
         dictionary[rc1].append(rc2) # appends lastname -> value of the dict
         reverse_dict[rc2].append(rc1) # appends firstname -> value of the dict
