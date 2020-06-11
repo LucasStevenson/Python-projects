@@ -1,9 +1,11 @@
+#!/usr/bin/env python3
+
 import requests
 import sys
 import json
 
 if len(sys.argv) == 1:
-    print("You need to provide an IP the an argument\nUsage: python3 ipgeolocator.py IPADDRESS")
+    print("You need to provide an IP as the argument")
     exit()
 
 IP = sys.argv[1]
