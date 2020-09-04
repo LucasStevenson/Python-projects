@@ -2,12 +2,23 @@
 
 import sys
 import math
+import argparse
+from prettytable import PrettyTable
 
-del sys.argv[0]  # this deletes the file name because i dont need that
-x = sys.argv  # everything besides the file name
-if len(x) < 1:  # no numbers are put in
+# Setting up the parser and the -tags
+parser = argparse.ArgumentParser()
+parser.add_argument('-li', help="list of numbers separated by commas")
+parser.add_argument('-sd', action='store_true',
+                    help="display standard deviation table")
+args = parser.parse_args()
+
+
+del sys.argv[0]  # this deletes the filename because i dont need that
+if len(sys.argv) < 1 or args.li == None:  # no numbers are put in
     print("you need to put in some sort of input. try again cept actually put something in")
     exit()
+
+x = args.li.split(",")
 nums = [float(i) for i in x]  # This converts strings in list into integers
 nums.sort()
 length = len(nums)
@@ -23,8 +34,8 @@ def maximum(nums):
 
 def average(nums):
     total = 0
-    for x in nums:
-        total += x
+    for i in nums:
+        total += i
     return(total/length)
 
 # Make a copy of nums(So I don't change the original list)
@@ -88,11 +99,25 @@ def standardDeviation(nums):
     mu = average(nums)
     innerPart = 0
     for i in nums:
-        # print((i-average(nums))**2)
+        # print((i-mu)**2)
         innerPart += (i-mu)**2
     innerPart /= length
 
     return math.sqrt(innerPart)
+
+
+'''
+Extra functions
+'''
+# Print out SD table
+
+
+def standardDeviationTable(nums):
+    mu = average(nums)
+    t = PrettyTable(['x', 'µ', 'x-µ', '(x-µ)^2'])
+    for i in nums:
+        t.add_row([i, mu, i-mu, (i-mu)**2])
+    return t
 
 
 # When doing print, cast integers that are returned into strings because print likes strings and not ints
@@ -103,3 +128,6 @@ print("Median: " + str(median(nums)))
 print("Mode: " + str(mode(nums)))
 print("Range: " + str(range(nums)))
 print("StandardDeviation: " + str(standardDeviation(nums)))
+
+if args.sd:
+    print(standardDeviationTable(nums))
