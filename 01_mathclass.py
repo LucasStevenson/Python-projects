@@ -10,6 +10,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('-li', help="list of numbers separated by commas")
 parser.add_argument('-sd', action='store_true',
                     help="display standard deviation table")
+parser.add_argument('-pr', help="shows percentile rank. Needs raw score as argument.")
 args = parser.parse_args()
 
 
@@ -20,6 +21,7 @@ if len(sys.argv) < 1 or args.li == None:  # no numbers are put in
 
 x = args.li.split(",")
 nums = [float(i) for i in x]  # This converts strings in list into integers
+ogNums = nums.copy()
 nums.sort()
 length = len(nums)
 
@@ -111,13 +113,25 @@ Extra functions
 '''
 # Print out SD table
 
-
 def standardDeviationTable(nums):
     mu = average(nums)
     t = PrettyTable(['x', 'µ', 'x-µ', '(x-µ)^2'])
     for i in nums:
-        t.add_row([i, mu, i-mu, (i-mu)**2])
+        t.add_row([round(i, 3), round(mu, 3), round(i-mu, 3), round((i-mu)**2, 3)])
     return t
+
+# Percentile rank
+
+def percentileRank(nums):
+    X = float(args.pr)
+    belowX = 0
+    equalX = 0
+    for i in nums:
+        if i < X:
+            belowX += 1
+        elif i == X:
+            equalX += 1
+    return ((belowX + (0.5 * equalX))/length) * 100
 
 
 # When doing print, cast integers that are returned into strings because print likes strings and not ints
@@ -130,4 +144,6 @@ print("Range: " + str(range(nums)))
 print("StandardDeviation: " + str(standardDeviation(nums)))
 
 if args.sd:
-    print(standardDeviationTable(nums))
+    print(standardDeviationTable(ogNums))
+if args.pr != None:
+    print("Percentile Rank: " + str(percentileRank(nums)))
