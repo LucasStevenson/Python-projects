@@ -11,13 +11,40 @@ parser.add_argument('-li', help="list of numbers separated by commas")
 parser.add_argument('-sd', action='store_true',
                     help="display standard deviation table")
 parser.add_argument('-pr', help="shows percentile rank. Needs raw score as argument.")
+parser.add_argument('-bp', action='store_true', help="binomial probabilty")
 args = parser.parse_args()
 
 
 del sys.argv[0]  # this deletes the filename because i dont need that
-if len(sys.argv) < 1 or args.li == None:  # no numbers are put in
-    print("you need to put in some sort of input. try again cept actually put something in")
-    exit()
+if len(sys.argv) < 1 or (args.li == None and args.bp == False):  # neither li or bp was set
+    print("You need to put in some sort of input. Use -h for more help")
+    sys.exit()
+elif args.li != None and args.bp: # li and binomial prob can't be in the same command
+    print("-bp and -li should not be used in the same command")
+    sys.exit()
+elif args.bp:
+    from fractions import Fraction
+    # Binomial Probability
+
+    def binomialProbability(n, x, p):
+        # n = fixed number of trials
+        # x = specified number of successes
+        # p = probability of success on any given trial
+        q = 1-p
+        if n - x < 0 or n < 0 or x < 0:
+            return "undefined"
+        nCx = (math.factorial(n))/(math.factorial(x)*math.factorial(n-x))
+        return Fraction(nCx * p**x * q**(n-x)).limit_denominator()
+
+    try:
+        n = float(sum(Fraction(s) for s in input("Fixed number of trials (n): ").split()))
+        x = float(sum(Fraction(s) for s in input("Specified number of successes (x): ").split()))
+        p = float(sum(Fraction(s) for s in input("Probability of success on any given trial (p): ").split()))
+    except KeyboardInterrupt:
+        sys.exit()
+
+    print("\nBinomial Probability: " + str(binomialProbability(n, x, p)))
+    sys.exit()
 
 x = args.li.split(",")
 nums = [float(i) for i in x]  # This converts strings in list into integers
